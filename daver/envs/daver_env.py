@@ -1,5 +1,6 @@
 import gym
 import numpy as np
+import random
 from gym import error, spaces, utils
 from gym.utils import seeding
 
@@ -14,9 +15,10 @@ class DaverEnv(gym.Env):
         self.state = np.zeros((self.width,self.height))
         self.state[self.pos[0]][self.pos[1]] = 1
         self.state[4][4] = 2
-        self.safe_location = np.array([5,5])
 
-        self.action_space = spaces.Discrete(5)
+        self.safe_location = np.array([4,4])
+
+        self.action_space = spaces.Discrete(4)
 
     def step(self, action):
         if action == 0:
@@ -35,7 +37,7 @@ class DaverEnv(gym.Env):
         s_ = self.pos
 
         if np.array_equal(s_, self.safe_location):
-            reward = 1
+            reward = 20
             done = True
         else:
             reward = -1
@@ -46,8 +48,8 @@ class DaverEnv(gym.Env):
         self.state[4][4] = 2        
 
 
-        
-        return self.state, reward, done, ""
+        encoded = self.pos[0] * 10 + self.pos[1]
+        return encoded, reward, done
 
     
     def render(self):
@@ -57,9 +59,15 @@ class DaverEnv(gym.Env):
         print(self.state)
 
 
+
     def reset(self):
         self.state = np.zeros((self.width,self.height))
-        self.state[0][0] = 1
-        self.state[4][4] = 2  
+        random_pos = np.random.randint(10, size=2)
+        self.state[random_pos[0]][random_pos[1]] = 1
+        self.state[4][4] = 2 
+        self.pos = random_pos
 
-        return self.state      
+
+        return 0     
+
+

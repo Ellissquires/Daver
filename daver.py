@@ -96,7 +96,7 @@ for _ in range(episodes):
     while not done:
         action = np.argmax(q_table[state])
         state, reward, done = env.step(action)
-        if reward == -100:
+        if reward == -1000:
             times_caught += 1
         if reward == 100:
             safe_deposited += 1

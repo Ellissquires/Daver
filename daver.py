@@ -30,7 +30,7 @@ all_penalties = []
 current_frame_dict = {}
 pens = [0]
 
-for i in range(1, 100):
+for i in range(1, 10001):
     state = env.reset()
 
     epochs, penalties, reward, = 0, 0, 0
@@ -51,18 +51,24 @@ for i in range(1, 100):
 
         state = next_state
         epochs += 1
+        if(i % 100 == 0):
+            if i in current_frame_dict:
+                current_frame_dict[i].append(env.state.tolist())
+            else:
+                current_frame_dict[i] = [env.state.tolist()]
+
+            print(i)
     
-    pens[-1] += penalties
         
-    if i % 10 == 0:
-        if i in current_frame_dict:
-            state = env.state.tolist()
-            current_frame_dict[i].append(state)
-        else:
-            state = env.state.tolist()
-            current_frame_dict[i] = [state]
-        clear_output(wait=True)
-        print(f"Episode: {i}")
+    # if i % 100 == 0:
+    #     if i in current_frame_dict:
+    #         state = env.state.tolist()
+    #         current_frame_dict[i].append(state)
+    #     else:
+    #         state = env.state.tolist()
+    #         current_frame_dict[i] = [state]
+    #     clear_output(wait=True)
+    #     print(f"Episode: {i}")
 
 print("Training finished.\n")
 

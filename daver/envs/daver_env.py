@@ -42,7 +42,7 @@ class DaverEnv(gym.Env):
         
         self.state = np.zeros((self.width,self.height))
         self.state[self.pos[0]][self.pos[1]] = 1
-        self.state[self.enemy_pos[0]][self.enemy_pos[1]] = 1
+        self.state[self.enemy_pos[0]][self.enemy_pos[1]] = 2
         
 
 

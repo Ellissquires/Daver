@@ -52,6 +52,7 @@ for i in range(1, 10001):
         state = next_state
         epochs += 1
         if(i % 100 == 0):
+            env.render()
             if i in current_frame_dict:
                 current_frame_dict[i].append(env.state.tolist())
             else:

@@ -3,6 +3,7 @@ import random
 from IPython.display import clear_output
 from collections import deque
 import progressbar
+import json
 
 import gym
 import daver
@@ -26,9 +27,10 @@ epsilon = 0.1
 # For plotting metrics
 all_epochs = []
 all_penalties = []
-
+current_frame_dict = {}
 pens = [0]
-for i in range(1, 5):
+
+for i in range(1, 100):
     state = env.reset()
 
     epochs, penalties, reward, = 0, 0, 0
@@ -52,12 +54,24 @@ for i in range(1, 5):
     
     pens[-1] += penalties
         
-    # if i % 100 == 0:
-    #     pens.append(0)
-    #     clear_output(wait=True)
-    #     print(f"Episode: {i}")
+    if i % 10 == 0:
+        if i in current_frame_dict:
+            state = env.state.tolist()
+            current_frame_dict[i].append(state)
+        else:
+            state = env.state.tolist()
+            current_frame_dict[i] = [state]
+        clear_output(wait=True)
+        print(f"Episode: {i}")
 
 print("Training finished.\n")
+
+
+# export = json.dumps(current_frame_dict)
+# print(current_frame_dict)
+# current_frame_dict = { k: v.tolist() for k, v in current_frame_dict.items() }
+with open('export.json', 'w') as json_file:
+    json.dump(current_frame_dict, json_file, indent=4)
 
 """Evaluate agent's performance after Q-learning"""
 
@@ -76,9 +90,9 @@ for _ in range(episodes):
     while not done:
         action = np.argmax(q_table[state])
         state, reward, done = env.step(action)
-        if reward == -100000:
+        if reward == -100:
             times_caught += 1
-        if reward == 1:
+        if reward == 100:
             safe_deposited += 1
 
         if (i == max_move):

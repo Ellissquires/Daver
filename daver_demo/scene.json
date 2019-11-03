@@ -1,0 +1,167 @@
+{
+	"metadata": {
+		"version": 4.5,
+		"type": "Object",
+		"generator": "Object3D.toJSON"
+	},
+	"geometries": [
+		{
+			"uuid": "EE481F67-07C1-450A-A76C-EC79C1BF2892",
+			"type": "PlaneBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"widthSegments": 1,
+			"heightSegments": 1
+		},
+		{
+			"uuid": "D4A36D43-9582-424A-89D4-E46C874752E2",
+			"type": "BoxBufferGeometry",
+			"width": 10,
+			"height": 1,
+			"depth": 0.2,
+			"widthSegments": 1,
+			"heightSegments": 1,
+			"depthSegments": 1
+		},
+		{
+			"uuid": "59AE5217-5C50-469D-AC0D-6A3CEAE4F6D4",
+			"type": "BoxBufferGeometry",
+			"width": 10.4,
+			"height": 1,
+			"depth": 0.2,
+			"widthSegments": 1,
+			"heightSegments": 1,
+			"depthSegments": 1
+		}],
+	"materials": [
+		{
+			"uuid": "B082ABB3-DA35-4ACC-A60E-590C75FFBD7B",
+			"type": "MeshStandardMaterial",
+			"name": "Base",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 0,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"stencilWrite": false,
+			"stencilWriteMask": 255,
+			"stencilFunc": 519,
+			"stencilRef": 0,
+			"stencilFuncMask": 255,
+			"stencilFail": 7680,
+			"stencilZFail": 7680,
+			"stencilZPass": 7680
+		},
+		{
+			"uuid": "2A3B1DFE-385B-49F8-A31F-AAD4932DC7E5",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 0,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"stencilWrite": false,
+			"stencilWriteMask": 255,
+			"stencilFunc": 519,
+			"stencilRef": 0,
+			"stencilFuncMask": 255,
+			"stencilFail": 7680,
+			"stencilZFail": 7680,
+			"stencilZPass": 7680
+		}],
+	"object": {
+		"uuid": "39C27990-90FB-4F5E-ABD7-E81BE18DE8B4",
+		"type": "Scene",
+		"name": "Scene",
+		"layers": 1,
+		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+		"children": [
+			{
+				"uuid": "B488C52D-7A36-466B-9EC0-7F69A3E69050",
+				"type": "Mesh",
+				"name": "Plane",
+				"layers": 1,
+				"matrix": [10,0,0,0,0,0,-10,0,0,10,0,0,0,0,0,1],
+				"geometry": "EE481F67-07C1-450A-A76C-EC79C1BF2892",
+				"material": "B082ABB3-DA35-4ACC-A60E-590C75FFBD7B"
+			},
+			{
+				"uuid": "C4ACA35B-8CC6-464D-A2EC-C307744D01F0",
+				"type": "AmbientLight",
+				"name": "AmbientLight",
+				"layers": 1,
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+				"color": 2236962,
+				"intensity": 1
+			},
+			{
+				"uuid": "F662164A-6784-4D9B-9DFB-3C5F6B293671",
+				"type": "Mesh",
+				"name": "Box",
+				"layers": 1,
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0.5,-5.1,1],
+				"geometry": "D4A36D43-9582-424A-89D4-E46C874752E2",
+				"material": "2A3B1DFE-385B-49F8-A31F-AAD4932DC7E5"
+			},
+			{
+				"uuid": "6BF3DB25-336F-4282-B2EE-A19E709FF7A4",
+				"type": "Mesh",
+				"name": "Box",
+				"layers": 1,
+				"matrix": [0,0,-1,0,0,1,0,0,1,0,0,0,-5.1,0.5,0,1],
+				"geometry": "59AE5217-5C50-469D-AC0D-6A3CEAE4F6D4",
+				"material": "2A3B1DFE-385B-49F8-A31F-AAD4932DC7E5"
+			},
+			{
+				"uuid": "6A21F35D-D835-4565-9D86-813609069D57",
+				"type": "Mesh",
+				"name": "Box",
+				"layers": 1,
+				"matrix": [0,0,-1,0,0,1,0,0,1,0,0,0,5.1,0.5,0,1],
+				"geometry": "59AE5217-5C50-469D-AC0D-6A3CEAE4F6D4",
+				"material": "2A3B1DFE-385B-49F8-A31F-AAD4932DC7E5"
+			},
+			{
+				"uuid": "576148CD-A1E9-4C4A-BE10-B5B81357647B",
+				"type": "Mesh",
+				"name": "Box",
+				"layers": 1,
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0.5,5.1,1],
+				"geometry": "D4A36D43-9582-424A-89D4-E46C874752E2",
+				"material": "2A3B1DFE-385B-49F8-A31F-AAD4932DC7E5"
+			},
+			{
+				"uuid": "CA5BC3E7-806E-491C-858F-CF790C9C5E63",
+				"type": "DirectionalLight",
+				"name": "DirectionalLight",
+				"layers": 1,
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,5,10,7.5,1],
+				"color": 16777215,
+				"intensity": 1,
+				"shadow": {
+					"camera": {
+						"uuid": "9F88E9A7-0000-48B0-8819-8DB30293D582",
+						"type": "OrthographicCamera",
+						"layers": 1,
+						"zoom": 1,
+						"left": -5,
+						"right": 5,
+						"top": 5,
+						"bottom": -5,
+						"near": 0.5,
+						"far": 500
+					}
+				}
+			}],
+		"background": 16777215,
+		"fog": {
+			"type": "FogExp2",
+			"color": 11184810,
+			"density": 0.05
+		}
+	}
+}

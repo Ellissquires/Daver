@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Document</title>
+      <style>
+            body {
+                  margin: 0;
+                  overflow: hidden;
+            }
+
+            canvas {
+                  height: 100%;
+                  width: 100%;
+            }
+
+            form {
+                  position: absolute;
+                  top: 1rem;
+                  left: 1rem;
+            }
+      </style>
+</head>
+
+<body>
+      <form>
+            <input type="number" placeholder="Episode number" id="episode">
+            <button type="button" onclick="runEpisode()">Run episode</button>
+      </form>
+      <script src="three.js"></script>
+      <script src="FBXLoader.js"></script>
+
+      <script>
+            container = document.createElement('div');
+            document.body.appendChild(container);
+
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+            // camera.position.x = 1;
+            camera.position.y = 10;
+            camera.position.z = 10;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+            scene = new THREE.Scene();
+            var objectLoader = new THREE.ObjectLoader();
+            objectLoader.load("./scene.json", function (obj) {
+                  obj.receiveShadow = true;
+                  scene.add(obj);
+            });
+
+
+
+            var ambient = new THREE.AmbientLight(0x444444);
+            scene.add(ambient);
+            var directionalLight = new THREE.DirectionalLight(0xffeedd, 1, 100);
+            directionalLight.position.set(0, 0, 1).normalize();
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFShadowMap; // default THREE.PCFShadowMap
+
+            //Set up shadow properties for the light
+            directionalLight.shadow.mapSize.width = 512;  // default
+            directionalLight.shadow.mapSize.height = 512; // default
+            directionalLight.shadow.camera.near = 0.5;    // default
+            directionalLight.shadow.camera.far = 500;     // default
+
+            var geometry = new THREE.SphereGeometry(0.3, 32, 32);
+            // var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            var material = new THREE.MeshPhongMaterial( { 
+                  color: 0x00ff00,
+                  specular: 0x050505,
+                  shininess: 200
+                  } ) 
+            var agent = new THREE.Mesh(geometry, material);
+            agent.position.y = 0.2;
+            agent.scale.y = 1.5;
+            agent.receiveShadow = true;
+            agent.castShadow = true;
+            scene.add(agent);
+
+            var geometry = new THREE.SphereGeometry(0.3, 32, 32);
+            // var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            var material = new THREE.MeshPhongMaterial( { 
+                  color: 0xff0000,
+                  specular: 0x050505,
+                  shininess: 200
+                  } ) 
+            var enemy = new THREE.Mesh(geometry, material);
+            enemy.position.y = 0.2;
+            enemy.scale.y = 1.5;
+            enemy.receiveShadow = true;
+            enemy.castShadow = true;
+            // var enemy;
+            // var objectLoader = new THREE.ObjectLoader();
+            // objectLoader.load('./kodama.obj', function (obj) {
+            //       obj.receiveShadow = true;
+            //       scene.add(obj);
+            // });
+            scene.add(enemy)
+
+            var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+            // var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+            var material = new THREE.MeshPhongMaterial( { 
+                  color: 0x0000ff,
+                  specular: 0x050505,
+                  shininess: 200
+                  } ) 
+            var chest = new THREE.Mesh(geometry, material);
+            chest.position.y = 0.2;
+            chest.receiveShadow = true;
+            chest.castShadow = true;
+            scene.add(chest);
+
+            var grid = new THREE.GridHelper(10, 10);
+            grid.position.y = 0.01;
+            scene.add(grid);
+
+            var frames;
+            fetch('./export.json').then(response => {
+                  response.json().then(json => {
+                        frames = json;
+                  });
+            });
+
+            (function animate() {
+                  requestAnimationFrame(animate);
+                  renderer.render(scene, camera);
+            })();
+
+
+            function runEpisode() {
+                  var episode = document.querySelector('#episode').value;
+                  var frame = 0;
+                  var frameInterval = setInterval(() => {
+                        drawFrame(frames[episode][frame]);
+                        if (frame < frames[episode].length - 1) {
+                              frame += 1;
+                        } else {
+                              clearInterval(frameInterval);
+                        }
+                  }, 500);
+            }
+
+            function drawFrame(frame) {
+                  frame.forEach((row, i) => {
+                        row.forEach((type, j) => {
+                              if (type === 1) {
+                                    enemy.position.x = i - 4.5;
+                                    enemy.position.z = j - 4.5;
+                              } else if (type === 2) {
+                                    agent.position.x = i - 4.5;
+                                    agent.position.z = j - 4.5;
+                              } else if (type === 3) {
+                                    chest.position.x = i - 4.5;
+                                    chest.position.z = j - 4.5;
+                              }
+                        })
+                  })
+            }
+      </script>
+</body>
+
+</html>

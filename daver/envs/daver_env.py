@@ -31,13 +31,13 @@ class DaverEnv(gym.Env):
         s_ = self.pos
         self.enemy_move()
         if np.array_equal(s_, self.enemy_pos):
-            reward = -10
+            reward = -1000
             done = True
         elif np.array_equal(s_, self.safe_location):
-            reward = 1000
+            reward = 10
             done = True 
         else:
-            reward = 0
+            reward = 1  
             done = False
         
         self.state = np.zeros((self.width,self.height))
@@ -46,7 +46,7 @@ class DaverEnv(gym.Env):
         
 
 
-        encoded = self.pos[0] * 10 + self.pos[1]
+        encoded = self.pos[0] + self.pos[1] * 10 + self.enemy_pos[0] * 100 + self.enemy_pos[1] * 1000 
         return encoded, reward, done
 
     

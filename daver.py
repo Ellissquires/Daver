@@ -14,7 +14,7 @@ from tensorflow.keras.optimizers import Adam
 
 env = gym.envs.make("daver-v0")
 
-q_table = np.zeros([100, 4])
+q_table = np.zeros([10000, 4])
 
 import random
 from IPython.display import clear_output
@@ -52,13 +52,10 @@ for i in range(1, 100001):
         state = next_state
         epochs += 1
         if(i % 100 == 0):
-            env.render()
             if i in current_frame_dict:
                 current_frame_dict[i].append(env.state.tolist())
             else:
                 current_frame_dict[i] = [env.state.tolist()]
-
-            print(i)
     
         
     # if i % 100 == 0:
@@ -99,7 +96,7 @@ for _ in range(episodes):
         state, reward, done = env.step(action)
         if reward == -1000:
             times_caught += 1
-        if reward == 100:
+        if reward == 10:
             safe_deposited += 1
 
         if (i == max_move):

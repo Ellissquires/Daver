@@ -30,7 +30,7 @@ all_penalties = []
 current_frame_dict = {}
 pens = [0]
 
-for i in range(1, 10001):
+for i in range(1, 100001):
     state = env.reset()
 
     epochs, penalties, reward, = 0, 0, 0

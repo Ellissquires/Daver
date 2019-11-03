@@ -30,7 +30,7 @@ all_penalties = []
 current_frame_dict = {}
 pens = [0]
 
-for i in range(1, 100001):
+for i in range(1, 10001):
     state = env.reset()
 
     epochs, penalties, reward, = 0, 0, 0
@@ -80,7 +80,7 @@ with open('export.json', 'w') as json_file:
 """Evaluate agent's performance after Q-learning"""
 
 total_epochs, total_penalties = 0, 0
-episodes = 10000
+episodes = 1000
 max_move = 100
 times_caught = 0
 safe_deposited = 0

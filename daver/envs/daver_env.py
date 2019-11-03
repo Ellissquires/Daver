@@ -30,6 +30,7 @@ class DaverEnv(gym.Env):
         
         s_ = self.pos
         self.enemy_move()
+<<<<<<< HEAD
         if np.array_equal(s_, self.safe_location):
             reward = 5
             done = True
@@ -38,6 +39,16 @@ class DaverEnv(gym.Env):
         #     done = True 
         else:
             reward = -1
+=======
+        if np.array_equal(s_, self.enemy_pos):
+            reward = -1000
+            done = True
+        elif np.array_equal(s_, self.safe_location):
+            reward = 10
+            done = True 
+        else:
+            reward = 0
+>>>>>>> 24b027d22b5d0930035d620d0dc9e7b3e672187e
             done = False
         
         self.state = np.zeros((self.width,self.height))
@@ -58,6 +69,7 @@ class DaverEnv(gym.Env):
 
     def enemy_move(self):
         if not np.array_equal(self.pos, self.enemy_pos):
+<<<<<<< HEAD
             if np.random.uniform(0, 1) > 0.9:
                 self.enemy_pos += np.random.randint(1, size=2)
             else:
@@ -69,6 +81,17 @@ class DaverEnv(gym.Env):
 
 
 
+=======
+            diff = self.enemy_pos - self.pos 
+            if abs(diff[0]) > abs(diff[1]):
+                self.enemy_pos[0] -= diff[0] / abs(diff[0])
+            else:
+                self.enemy_pos[1] -= diff[1] / abs(diff[1])
+
+
+
+
+>>>>>>> 24b027d22b5d0930035d620d0dc9e7b3e672187e
     def get_frame(self):
         return self.state
         

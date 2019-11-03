@@ -72,6 +72,13 @@ print(all_epochs)
 with open('export.json', 'w') as json_file:
     json.dump(current_frame_dict, json_file, indent=4)
 
+
+# export = json.dumps(current_frame_dict)
+# print(current_frame_dict)
+# current_frame_dict = { k: v.tolist() for k, v in current_frame_dict.items() }
+with open('export.json', 'w') as json_file:
+    json.dump(current_frame_dict, json_file, indent=4)
+
 """Evaluate agent's performance after Q-learning"""
 
 total_epochs, total_penalties = 0, 0
